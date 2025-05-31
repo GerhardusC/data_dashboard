@@ -50,7 +50,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Zip up
       - name: Retrieve release assets server
         uses: actions/download-artifact@v4
         with:
