@@ -25,8 +25,49 @@ jobs:
           name: data-dashboard
           path: ./data-dashboard
 
+  Build-Frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build front end
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+      - run: |
+          cd ./frontend
+          npm install
+          npm run build
+      - name: Upload output folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: ./frontend/dist
+
+  Zip-Up-Release:
+    needs: [Build-Server, Build-Frontend]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Zip up
+      - name: Retrieve release assets server
+        uses: actions/download-artifact@v4
+        with:
+          name: data-dashboard
+      - name: Retrieve release assets frontend
+        with:
+          name: dist
+      - name: Zip assets
+      - run: zip release ./data-dashboard dist
+      - name: Upload zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: release
+          path: ./release
+
   Create-Release:
-    needs: Build-Server
+    needs: Zip-Up-Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -37,15 +78,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets. GITHUB_TOKEN }}
         with:
-          tag_name: v0.0.0 # ${{ github.ref }}
-          release_name: v0.0.0 # ${{ github.ref }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           body: todo
           draft: false
           prerelease: false
       - name: Retrieve release assets
         uses: actions/download-artifact@v4
         with:
-          name: data-dashboard
+          name: release
       - name: Upload release
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
@@ -53,7 +94,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets. GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./data-dashboard
-          asset_name: data-dashboard
-          asset_content_type: application/octet-stream
+          asset_path: ./release
+          asset_name: release
+          asset_content_type: application/zip
 
