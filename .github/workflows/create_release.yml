@@ -56,6 +56,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dist
+      - name: Check items again
+        run: ls -alh
       - name: Zip assets
         run: zip ./release.zip ./data-dashboard ./frontend/dist/
       - name: Upload zip
@@ -64,7 +66,7 @@ jobs:
           name: release
           path: ./release.zip
       - name: Verify files exist
-        run: ls -alh
+      - run: ls -alh
 
   Create-Release:
     needs: Zip-Up-Release
