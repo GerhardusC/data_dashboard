@@ -13,6 +13,5 @@ func main () {
 	cliargs.InitArgs()
 	dbInteractions.InitDB()
 
-
 	handlers.InitHandlers()
 }

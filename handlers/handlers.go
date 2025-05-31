@@ -11,8 +11,6 @@ import (
 func InitHandlers () {
 	mux := http.NewServeMux()
 
-
-	// Measurements
 	mux.HandleFunc(
 		"GET /measurements",
 		middleware.LimitRate(allMeasurementsHandler, 0.2, 1),
