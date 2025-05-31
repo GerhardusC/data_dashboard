@@ -43,5 +43,5 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./data-dashboard
           asset_name: data-dashboard
-          application_content_type: application/octet-stream
+          application_content_type: application/zip
 
