@@ -57,7 +57,7 @@ jobs:
         with:
           name: dist
       - name: Zip assets
-        run: zip release ./data-dashboard dist
+        run: zip release ./data-dashboard ./dist/
       - name: Upload zip
         uses: actions/upload-artifact@v4
         with:
