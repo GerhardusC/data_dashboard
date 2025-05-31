@@ -18,6 +18,7 @@ jobs:
         run: ls -ahl
 
   Create-Release:
+    needs: Build-Server
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
