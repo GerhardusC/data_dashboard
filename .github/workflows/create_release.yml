@@ -34,7 +34,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22.14.0'
-      - run: cd ./frontend && npm install && npm run build
+      - name: Build frontend
+        run: cd ./frontend && npm install && npm run build
       - name: Upload output folder
         uses: actions/upload-artifact@v4
         with:
@@ -42,7 +43,7 @@ jobs:
           path: ./frontend/dist
 
   Zip-Up-Release:
-    # needs: [Build-Server, Build-Frontend]
+    needs: [Build-Server, Build-Frontend]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -73,7 +74,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets. GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
