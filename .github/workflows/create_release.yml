@@ -35,7 +35,7 @@ jobs:
         with:
           node-version: '22.14.0'
       - name: Build frontend
-        run: cd ./frontend && npm install && npm run build
+        run: cd ./frontend && npm install && npm run build && cd ../
       - name: Upload output folder
         uses: actions/upload-artifact@v4
         with:
@@ -59,7 +59,7 @@ jobs:
       - name: Zip assets
         run: zip ./release.zip ./data-dashboard ./frontend/dist/
       - name: Verify files exist
-        run: ls -alh
+        run: ls -alh ./frontend
       - name: Upload zip
         uses: actions/upload-artifact@v4
         with:
@@ -95,6 +95,6 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./release.zip
-          asset_name: release
+          asset_name: release.zip
           asset_content_type: application/zip
 
