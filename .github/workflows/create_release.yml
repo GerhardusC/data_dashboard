@@ -17,7 +17,7 @@ jobs:
       - name: Check output
         run: ls -ahl
       - name: Upload output file
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: data-dashboard
           path: ./data-dashboard
@@ -40,7 +40,7 @@ jobs:
           draft: false
           prerelease: false
       - name: Retrieve release assets
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: data-dashboard
       - name: Upload release
