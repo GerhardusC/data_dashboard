@@ -1,6 +1,9 @@
 name: Create Releases
 run-name: ${{ github.actor }} is creating a release
-on: [push]
+on:
+  push:
+    tags:
+      - 'v*'
 jobs:
   Build-Server:
     runs-on: ubuntu-latest
