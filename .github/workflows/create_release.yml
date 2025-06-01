@@ -58,9 +58,9 @@ jobs:
           name: dist
           path: ./frontend/dist
       - name: Zip assets
-        run: zip ./release.zip ./data-dashboard ./frontend/dist/
+        run: zip ./release.zip ./data-dashboard ./frontend/dist
       - name: Verify files exist
-        run: ls -alh ./frontend
+        run: ls -alh ./frontend/dist
       - name: Upload zip
         uses: actions/upload-artifact@v4
         with:
