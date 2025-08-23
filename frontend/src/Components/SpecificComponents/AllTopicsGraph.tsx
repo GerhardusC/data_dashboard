@@ -10,6 +10,9 @@ import { groupDataByTopic } from "../../utils/funcs";
 
 const AllTopicsGraph = () => {
     const [highchartsOpts, setHighchartsOpts] = useState<Highcharts.Options>({
+        tooltip: {
+            valueDecimals: 1,
+        },
         chart: {
             zooming: {
                 type: "x",
@@ -28,7 +31,6 @@ const AllTopicsGraph = () => {
 
     useEffect(() => {
         const dataByTopic = groupDataByTopic(dataFetchState.data ?? []);
-        console.log(dataByTopic);
         setHighchartsOpts({
             yAxis:  Object.keys(dataByTopic).map(topic => {
                 const cleanedTopic = topic.replace(/\//g, "").replace("home", "");
@@ -49,7 +51,6 @@ const AllTopicsGraph = () => {
                     yAxis: topic,
                 }
             })
-            
         })
     }, [dataFetchState.data])
 

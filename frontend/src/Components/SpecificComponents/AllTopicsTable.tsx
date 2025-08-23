@@ -35,7 +35,7 @@ const AllTopicsTable = () => {
                             <td
                             >{new Date(item.timestamp * 1000).toString()}</td>
                             <td>{cleanedTopic}</td>
-                            <td>{item.value} {units.get(cleanedTopic) ?? ""}</td>
+                            <td>{Number(item.value).toFixed(1)} {units.get(cleanedTopic) ?? ""}</td>
                         </tr>
                     }).reverse()
                 }
