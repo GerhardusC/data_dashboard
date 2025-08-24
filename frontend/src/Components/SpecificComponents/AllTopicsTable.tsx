@@ -40,7 +40,6 @@ const AllTopicsTable = () => {
                     }).reverse()
                 }
             </tbody>
-
         </table>
     )
 }
